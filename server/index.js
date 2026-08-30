@@ -9,7 +9,7 @@ app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-1.5-flash';
+const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-1.5';
 const PORT = Number(process.env.PORT) || 4000;
 
 const ai = GEMINI_API_KEY ? new GoogleGenAI({ apiKey: GEMINI_API_KEY }) : null;
@@ -183,7 +183,7 @@ function normalizeReport(raw) {
 async function analyzeWithGemini(base64Data, mimeType, fileName) {
   const fileHint = fileName ? `\nOriginal filename: ${fileName}` : '';
   const response = await ai.models.generateContent({
-    model: 'gemini-1.5',
+    model: GEMINI_MODEL,
     contents: [
       createPartFromBase64(base64Data, mimeType),
       `${ANALYSIS_PROMPT}${fileHint}`,
@@ -206,12 +206,12 @@ app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
     geminiConfigured: Boolean(GEMINI_API_KEY),
-    model: 'gemini-1.5',
+    model: GEMINI_MODEL,
     timestamp: new Date().toISOString(),
   });
 });
 
-app.post('/api/analyze', async (req, `res`) => {
+app.post('/api/analyze', async (req, res) => {
   try {
     const { image, fileName } = req.body;
     if (!image) {
@@ -238,7 +238,7 @@ app.post('/api/analyze', async (req, `res`) => {
   } catch (error) {
     console.error('Analysis error:', error.message);
 
-    let message = error.message || 'Analysis failed. Check GEMINI_API_KEY and GEMINI_MODEL in server/.env.';
+    let message = error.message || 'Analysis failed. Check GEMINI_API_KEY and GEMINI_MODEL on Render.';
     try {
       const parsed = JSON.parse(message);
       message = parsed?.error?.message || message;
@@ -252,6 +252,6 @@ app.post('/api/analyze', async (req, `res`) => {
 
 app.listen(PORT, () => {
   console.log(`PackCheck AI API running on http://localhost:${PORT}`);
-  console.log(`Gemini: ${GEMINI_API_KEY ? 'configured' : 'NOT configured — set GEMINI_API_KEY in server/.env'}`);
-  console.log(`Model: gemini-1.5`);
+  console.log(`Gemini: ${GEMINI_API_KEY ? 'configured' : 'NOT configured — set GEMINI_API_KEY'}`);
+  console.log(`Model: ${GEMINI_MODEL}`);
 });
