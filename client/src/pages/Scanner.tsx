@@ -148,7 +148,7 @@ export default function Scanner() {
     setResult(null);
 
     try {
-      const response = await fetch('/api/analyze', {
+      const response = await fetch('https://packcheck-ai2026.onrender.com/api/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -162,7 +162,7 @@ export default function Scanner() {
       if (!response.ok) {
         setErrorVerdict(
           data.error ||
-            'Analysis failed. Make sure the backend server is running and GEMINI_API_KEY is set in server/.env.'
+            'Analysis failed. Make sure the backend server is running and GEMINI_API_KEY is set.'
         );
         return;
       }
@@ -171,7 +171,7 @@ export default function Scanner() {
       saveToHistory(data, imagePreview);
     } catch {
       setErrorVerdict(
-        'Could not reach the analysis server. Start it with: cd server && npm run dev'
+        'Could not reach the analysis server. Please check your network connection.'
       );
     } finally {
       setLoading(false);
