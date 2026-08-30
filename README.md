@@ -3,7 +3,8 @@
 # 🚀 PackCheck AI — TechVortex 🛡️
 ### *The Ultimate AI-Powered Food Label & Health Risk Inspector*
 
-[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-PackCheck_AI-38bdf8?style=for-the-badge&logo=netlify&logoColor=white)](https://packcheck-ai2026.netlify.app)
+[![Live Demo 1](https://img.shields.io/badge/🌐_Live_Demo_(Netlify)-PackCheck_AI-38bdf8?style=for-the-badge&logo=netlify&logoColor=white)](https://packcheck-ai2026.netlify.app)
+[![Live Demo 2](https://img.shields.io/badge/🚀_Alternative_Demo-Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)](https://packcheckai.netlify.app)
 [![Backend Status](https://img.shields.io/badge/⚡_Backend-Render_Live-4ade80?style=for-the-badge&logo=render&logoColor=white)](https://packcheck-ai2026.onrender.com)
 [![GitHub Repo](https://img.shields.io/badge/💻_GitHub-Repository-purple?style=for-the-badge&logo=github&logoColor=white)](https://github.com/harshkumarnigam/packcheck-ai2026)
 
