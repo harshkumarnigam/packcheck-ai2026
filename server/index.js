@@ -183,7 +183,7 @@ function normalizeReport(raw) {
 async function analyzeWithGemini(base64Data, mimeType, fileName) {
   const fileHint = fileName ? `\nOriginal filename: ${fileName}` : '';
   const response = await ai.models.generateContent({
-    model: GEMINI_MODEL,
+    model: 'gemini-1.5',
     contents: [
       createPartFromBase64(base64Data, mimeType),
       `${ANALYSIS_PROMPT}${fileHint}`,
@@ -206,12 +206,12 @@ app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
     geminiConfigured: Boolean(GEMINI_API_KEY),
-    model: GEMINI_MODEL,
+    model: 'gemini-1.5',
     timestamp: new Date().toISOString(),
   });
 });
 
-app.post('/api/analyze', async (req, res) => {
+app.post('/api/analyze', async (req, `res`) => {
   try {
     const { image, fileName } = req.body;
     if (!image) {
@@ -253,5 +253,5 @@ app.post('/api/analyze', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`PackCheck AI API running on http://localhost:${PORT}`);
   console.log(`Gemini: ${GEMINI_API_KEY ? 'configured' : 'NOT configured — set GEMINI_API_KEY in server/.env'}`);
-  console.log(`Model: ${GEMINI_MODEL}`);
+  console.log(`Model: gemini-1.5`);
 });
